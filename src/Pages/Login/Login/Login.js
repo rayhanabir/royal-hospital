@@ -1,5 +1,7 @@
 import { Alert, Button, CircularProgress, Container, Grid, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import useAuth from '../../../context/useAuth';
 import login from '../../../images/login.png'
@@ -7,6 +9,9 @@ import login from '../../../images/login.png'
 const Login = () => {
     const [loginData, setLoginData] = useState({});
     const {loginUser, isLoading, user, authError} = useAuth();
+
+    const location = useLocation();
+    const history = useHistory();
     const handleOnBlur = e =>{
         const field = e.target.name;
         const value = e.target.value;
@@ -16,8 +21,10 @@ const Login = () => {
     }
     const handleLogin = e =>{
         e.preventDefault();
-        loginUser(loginData.email, loginData.password)
+        loginUser(loginData.email, loginData.password, location, history)
     }
+
+
     return (
         <Container>
             <Grid sx={{mt:8}} container spacing={2}>
