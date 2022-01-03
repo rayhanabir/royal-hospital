@@ -1,0 +1,17 @@
+.doctors-area{
+    margin-top: 30px;
+}
+.doctors-area h2{
+    text-align: center;
+    color: rgb(70, 223, 223);
+}
+.doctor-one{
+    text-align: center;
+}
+.doctor-one img{
+    width: 250px;
+}
+.doctors-content{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}

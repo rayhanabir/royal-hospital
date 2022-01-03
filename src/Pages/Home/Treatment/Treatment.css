@@ -1,0 +1,17 @@
+
+.treatment{
+    margin-top: 30px;
+}
+.treatment-container{
+    display: flex;
+    align-items: center;
+    
+
+}
+.treatment-img img{
+    width: 430px;
+    margin-right: 20px;
+}
+.treatment-content{
+    text-align: center;
+}

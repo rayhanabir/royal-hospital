@@ -1,0 +1,20 @@
+
+
+.main-content{
+    display: flex;
+    align-items: center;
+    
+}
+
+.front-img img{
+    width: 600px;
+
+}
+.banner-content>h1,p{
+    color: #517A7B;
+}
+.banner-content h1, p, button{
+    margin: 16px 0;
+   
+    
+}
