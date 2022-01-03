@@ -2,6 +2,8 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
+import { Button } from '@mui/material';
 
 const style = {
   position: 'absolute',
@@ -14,8 +16,15 @@ const style = {
   p: 4,
 };
 
-const BookingModal = ({openBooking, handleBookingClose, booking}) => {
-     const {name, time, space} = booking;
+const BookingModal = ({openBooking, handleBookingClose, booking, date}) => {
+     const {name, time} = booking;
+     const handleBookingSubmit = e =>{
+       alert('submitting')
+      // collect data
+
+       handleBookingClose()
+       e.preventDefault()
+     }
     
     return (
         <Modal
@@ -28,9 +37,41 @@ const BookingModal = ({openBooking, handleBookingClose, booking}) => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
            {name}
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {time}
-          </Typography>
+          <form onSubmit={handleBookingSubmit}>
+          <TextField
+            disabled
+            sx={{width:'90%', m:1}}
+            id="outlined-size-small"
+            defaultValue={time}
+            size="small"
+          />
+
+            <TextField
+             sx={{width:'90%', m:1}}
+            id="outlined-size-small"
+            defaultValue="Your Name"
+            size="small"
+          />
+            <TextField
+            sx={{width:'90%', m:1}}
+            id="outlined-size-small"
+            defaultValue="Phone"
+            size="small"
+          />
+            <TextField
+             sx={{width:'90%', m:1}}
+            id="outlined-size-small"
+            defaultValue="Email"
+            size="small"
+          />
+            <TextField
+             sx={{width:'90%', m:1}}
+            id="outlined-size-small"
+            defaultValue={date.toDateString()}
+            size="small"
+          />
+          <Button type='submit' variant='contained'>Send</Button>
+          </form>
         </Box>
       </Modal>
     );
