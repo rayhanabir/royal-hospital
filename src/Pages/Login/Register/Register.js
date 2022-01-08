@@ -1,5 +1,6 @@
 import { Alert, Button, CircularProgress, Container, Grid, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import useAuth from '../../../context/useAuth';
@@ -7,9 +8,9 @@ import login from '../../../images/login.png'
 
 const Register = () => {
     const [loginData, setLoginData] = useState({});
-    const {registerUser, isLoading, user, authError} = useAuth();
+    const {registerUser, isLoading, user, authError, signInWithGoogle} = useAuth();
     const history = useHistory();
-
+    const location = useLocation();
     const handleOnBlur = e =>{
         const field = e.target.name;
         const value = e.target.value;
@@ -21,9 +22,14 @@ const Register = () => {
         if(loginData.password !== loginData.password2){
             return
         }
-        registerUser(loginData.email, loginData.password, history)
+        registerUser(loginData.email, loginData.password, loginData.name, history)
         e.preventDefault();
     }
+
+    const handleGoogleSignIn = () =>{
+        signInWithGoogle(location, history)
+    }
+
     return (
         <Container>
             <Grid sx={{mt:8}} container spacing={2}>
@@ -33,6 +39,15 @@ const Register = () => {
                     </Typography>
                     {!isLoading && <form onSubmit={handleLogin}>
 
+                    <TextField 
+                    sx={{width:"75%", m:2}}
+                    id="standard-basic" 
+                    label="Name" 
+                    type="text"
+                    name ='name'
+                    onBlur ={handleOnBlur}
+                    variant="standard" />
+                    
                     <TextField 
                     sx={{width:"75%", m:2}}
                     id="standard-basic" 
@@ -66,6 +81,9 @@ const Register = () => {
                     </NavLink>
 
                     </form>}
+                        <div>-----OR------</div>
+                        <Button onClick={handleGoogleSignIn} variant="contained">Google Sign In</Button>
+
                     {isLoading && <CircularProgress/>}
                     {user?.email && <Alert severity="success">User Created Successfully</Alert>}
                     {authError && <Alert severity="error">{authError}</Alert>}
