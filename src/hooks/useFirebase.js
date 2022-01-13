@@ -22,6 +22,10 @@ const useFirebase = () =>{
             history.push(destination)
             const newUser = {email, displayName:name, password}
             setUser(newUser)
+
+            //user save to db 
+            saveUser(email, name, 'POST')
+
             // send name to firebase
             updateProfile(auth.currentUser, {
                 displayName: name
@@ -56,6 +60,7 @@ const useFirebase = () =>{
             signInWithPopup(auth, googleProvider)
         .then((result) => {
             const user = result.user;
+            saveUser(user.email, user.displayName, 'PUT')
             const destination = location?.state?.from || '/home'
             history.push(destination);
             setAuthError('')
@@ -93,6 +98,18 @@ const useFirebase = () =>{
             })
             .finally(()=>setIsLoading(false))
         }
+        //user creation to database 
+
+        const saveUser = (email, displayName, method) =>{
+            const user = {email:email, displayName:displayName}
+            fetch('http://localhost:5000/users', {
+                method:method,
+                headers:{
+                    'Content-type':'application/json'
+                },
+                body:JSON.stringify(user)
+            })
+        }
     
         return{
             user,
@@ -102,7 +119,6 @@ const useFirebase = () =>{
             authError,
             isLoading,
             logOut
-    
         }
 }
 export default useFirebase

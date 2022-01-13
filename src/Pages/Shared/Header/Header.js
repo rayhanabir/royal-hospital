@@ -1,5 +1,6 @@
+import { Box } from '@mui/material';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import useAuth from '../../../context/useAuth';
 import './Header.css';
 
@@ -15,10 +16,14 @@ const Header = () => {
                     <li><Link to="/home">Home</Link></li>
                     <li><Link to="/about">About</Link></li>
                     <li><Link to="/appointment">Appointment</Link></li>
-                    <li><Link to="/contact">Contact</Link></li>
+                    
                     {
                         user.email ? 
-                        <li><button onClick={logOut}>LogOut</button></li>
+                        <Box>
+                            <NavLink to='/dashboard'>Dashboard</NavLink>
+                            <button onClick={logOut}>LogOut</button>
+                        </Box>
+                        
                         :
                         <li><Link to='/login'>Login</Link></li>
                     }
